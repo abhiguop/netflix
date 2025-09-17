@@ -1,7 +1,6 @@
 import { Stack } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
-import { SliderUnstyledOwnProps } from "@mui/base/SliderUnstyled";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import PlayerControlButton from "./PlayerControlButton";
@@ -10,20 +9,20 @@ const StyledSlider = styled(Slider)({
   height: 5,
   borderRadius: 0,
   padding: 0,
-  "& .NetflixSlider-track": {
+  "& .MuiSlider-track": {
     border: "none",
     backgroundColor: "red",
   },
-  "& .NetflixSlider-rail": {
+  "& .MuiSlider-rail": {
     border: "none",
     backgroundColor: "white",
     opacity: 0.85,
   },
-  "& .NetflixSlider-thumb": {
+  "& .MuiSlider-thumb": {
     height: 10,
     width: 10,
     backgroundColor: "red",
-    "&:focus, &:hover, &.Netflix-active, &.Netflix-focusVisible": {
+    "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {
       boxShadow: "inherit",
       height: 15,
       width: 15,
@@ -34,28 +33,21 @@ const StyledSlider = styled(Slider)({
   },
 });
 
+interface VolumeControllersProps {
+  value: number; // 0-1
+  muted: boolean;
+  handleVolumeToggle: () => void;
+  handleVolume: (_: Event, value: number | number[]) => void;
+}
+
 export default function VolumeControllers({
   value,
   handleVolume,
   handleVolumeToggle,
   muted,
-}: {
-  value: number;
-  handleVolume: SliderUnstyledOwnProps["onChange"];
-  handleVolumeToggle: React.MouseEventHandler<HTMLButtonElement>;
-  muted: boolean;
-}) {
+}: VolumeControllersProps) {
   return (
-    <Stack
-      direction="row"
-      alignItems="center"
-      spacing={{ xs: 0.5, sm: 1 }}
-      // sx={{
-      //   "&:hover NetflixSlider-root": {
-      //     display: "inline-block",
-      //   },
-      // }}
-    >
+    <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1 }}>
       <PlayerControlButton onClick={handleVolumeToggle}>
         {!muted ? <VolumeUpIcon /> : <VolumeOffIcon />}
       </PlayerControlButton>
